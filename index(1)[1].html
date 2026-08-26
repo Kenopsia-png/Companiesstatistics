@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С.О.М. — Статистика компании</title>
+<style>
+:root{
+  --bg:#080b12;--panel:#101521;--panel2:#151b29;--line:#273044;
+  --text:#eef2f8;--muted:#8e9ab0;--accent:#4f8cff;--accent2:#6c63ff;
+  --good:#35d49a;--warn:#ffbf5b;--danger:#ff647c;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 20% 0%,#17213b 0,#080b12 38%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+.container{width:min(1200px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(8,11,18,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:12px;align-items:center;font-weight:800}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:900}
+nav{display:flex;gap:22px;color:var(--muted);font-size:14px}nav a:hover{color:#fff}
+.hero{padding:55px 0 30px;display:grid;grid-template-columns:1.45fr .75fr;gap:20px}
+.heroCard,.card{background:linear-gradient(145deg,rgba(21,27,41,.94),rgba(12,16,25,.94));border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.heroCard{padding:32px}
+.kicker{color:#7fa8ff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
+h1{font-size:clamp(34px,5vw,64px);margin:10px 0 8px;line-height:1}
+.subtitle{color:var(--muted);font-size:17px;line-height:1.6;max-width:760px}
+.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}.tag{padding:8px 11px;border:1px solid var(--line);border-radius:999px;color:#bdc7d9;background:#0c111b;font-size:12px}
+.heroStats{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:22px}
+.stat{padding:18px;background:#0d121c;border:1px solid var(--line);border-radius:17px}
+.stat strong{display:block;font-size:27px;margin-top:5px}.stat span{color:var(--muted);font-size:12px}
+section{padding:18px 0 28px} .sectionTitle{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px}
+h2{font-size:25px;margin:0}.sectionTitle p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{padding:20px}.metric{font-size:31px;font-weight:800;margin:8px 0}.muted{color:var(--muted);font-size:13px}
+.progress{height:7px;background:#20283a;border-radius:10px;overflow:hidden;margin-top:15px}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chart{height:245px;display:flex;align-items:end;gap:13px;padding:25px 10px 10px}.barWrap{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:8px}.bar{width:min(42px,80%);border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#668fff,#4f5cff);min-height:10px}.barLabel{font-size:11px;color:var(--muted)}.barVal{font-size:11px}
+.list{display:grid;gap:10px}.row{display:flex;justify-content:space-between;gap:15px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#0c111a}.row b{font-size:14px}.row span{color:#c8d0df;font-weight:700}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:12px}.tab{border:1px solid var(--line);background:#0d121c;color:var(--muted);padding:9px 13px;border-radius:10px;cursor:pointer}.tab.active{background:#1a2b50;color:#fff;border-color:#416bb6}
+.project{display:none}.project.active{display:block}.project h3{margin:0 0 8px}.project p{color:var(--muted);line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:12px;margin-top:20px}
+@media(max-width:850px){nav{display:none}.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+@media(max-width:520px){.container{width:min(100% - 20px,1200px)}.hero{padding-top:28px}.heroCard{padding:23px}.heroStats{padding:12px}.grid{grid-template-columns:1fr}.card{padding:17px}h2{font-size:21px}.subtitle{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav">
+<a class="brand" href="#"><div class="logo">С</div><span>С.О.М.</span></a>
+<nav><a href="#overview">Обзор</a><a href="#production">Производство</a><a href="#fleet">Флот</a><a href="#projects">Проекты</a><a href="#management">Руководство</a></nav>
+</div>
+</header>
+
+<main class="container">
+<section class="hero" id="overview">
+<div class="heroCard">
+<div class="kicker">Корпоративная статистика</div>
+<h1>Судостроительное<br>объединение моря</h1>
+<div class="subtitle">С.О.М. — судостроительное объединение, специализирующееся на гражданском и военном судостроении, судоходных технологиях и морском производстве.</div>
+<div class="tags"><span class="tag">Судостроение</span><span class="tag">Военное производство</span><span class="tag">Гражданский флот</span><span class="tag">Исследования</span></div>
+</div>
+<div class="heroStats">
+<div class="stat"><span>Бюджет</span><strong>8 млрд</strong><span>условных единиц</span></div>
+<div class="stat"><span>Сотрудники</span><strong>300 000</strong><span>человек</span></div>
+<div class="stat"><span>Заводы</span><strong>114</strong><span>60 судостроительных + 54 ремонтных</span></div>
+<div class="stat"><span>Верфи</span><strong>42</strong><span>2 мега + 40 обычных</span></div>
+</div>
+</section>
+
+<section>
+<div class="sectionTitle"><div><h2>Ключевые показатели</h2><p>Сводная статистика объединения</p></div></div>
+<div class="grid">
+<div class="card"><div class="muted">Качество производства</div><div class="metric">Хорошее</div><div class="progress"><i style="width:78%"></i></div></div>
+<div class="card"><div class="muted">Судостроительные заводы</div><div class="metric">60</div><div class="muted">Ш.И. и Харизма</div></div>
+<div class="card"><div class="muted">Судоремонтные заводы</div><div class="metric">54</div><div class="muted">Ш.И. и Харизма</div></div>
+<div class="card"><div class="muted">Мега-верфи</div><div class="metric">2</div><div class="muted">расположены в Ш.И.</div></div>
+</div>
+</section>
+
+<section id="production">
+<div class="sectionTitle"><div><h2>Производство в год</h2><p>Заявленные мощности по основным категориям</p></div></div>
+<div class="two">
+<div class="card">
+<div class="chart" id="chart"></div>
+</div>
+<div class="card"><div class="list">
+<div class="row"><b>Крейсеры</b><span>6</span></div>
+<div class="row"><b>Подводные лодки</b><span>6</span></div>
+<div class="row"><b>Газовозы</b><span>3</span></div>
+<div class="row"><b>Торговые грузовые суда</b><span>3</span></div>
+<div class="row"><b>Военные логистические суда</b><span>4</span></div>
+<div class="row"><b>Суда береговой охраны</b><span>10</span></div>
+<div class="row"><b>Спасательные суда</b><span>5</span></div>
+<div class="row"><b>Вертолёты</b><span>30</span></div>
+</div></div>
+</div>
+</section>
+
+<section id="fleet">
+<div class="sectionTitle"><div><h2>Интерактивная инфраструктура</h2><p>Нажмите на категорию для просмотра деталей</p></div></div>
+<div class="tabs">
+<button class="tab active" data-tab="shipyards">Верфи</button><button class="tab" data-tab="plants">Заводы</button><button class="tab" data-tab="atlas">Атлас 101</button>
+</div>
+<div class="card project active" id="shipyards"><h3>⚓ Верфи</h3><p>2 мега-верфи в Ш.И. и 40 обычных верфей в Ш.И. и Харизме. Всего — <b>42 верфи</b>.</p></div>
+<div class="card project" id="plants"><h3>🏭 Заводская сеть</h3><p>60 судостроительных заводов и 54 судоремонтных завода. Всего — <b>114 предприятий</b>.</p></div>
+<div class="card project" id="atlas"><h3>🚢 Атлас 101</h3><p>Проект находится в начале производства. Первая партия — <b>70 единиц</b>.</p></div>
+</section>
+
+<section id="projects">
+<div class="sectionTitle"><div><h2>Крупные проекты</h2><p>Стратегические разработки С.О.М.</p></div></div>
+<div class="grid">
+<div class="card"><div class="muted">Проект</div><div class="metric">Авионосцы</div><div class="muted">Разработка авианосных платформ.</div></div>
+<div class="card"><div class="muted">Проект</div><div class="metric">Генерал Уилсон Мерц</div><div class="muted">Крупный кораблестроительный проект.</div></div>
+<div class="card"><div class="muted">Проект</div><div class="metric">Вайнберг</div><div class="muted">Перспективная морская разработка.</div></div>
+<div class="card"><div class="muted">Проект</div><div class="metric">Дрочислав</div><div class="muted">Одна из сильнейших подводных лодок в мире.</div></div>
+<div class="card"><div class="muted">Исследовательский проект</div><div class="metric">Гигант-М</div><div class="muted">Создание высококлассного радара.</div></div>
+</div>
+</section>
+
+<section id="management">
+<div class="sectionTitle"><div><h2>Руководство и штабы</h2><p>Организационная информация</p></div></div>
+<div class="two">
+<div class="card">
+<div class="list">
+<div class="row"><b>Генеральный директор</b><span>Вольфанг Штефан</span></div>
+<div class="row"><b>Короткое название</b><span>С.О.М.</span></div>
+<div class="row"><b>Отрасль</b><span>Судостроение</span></div>
+<div class="row"><b>Бюджет</b><span>8 млрд</span></div>
+</div>
+</div>
+<div class="card">
+<div class="list">
+<div class="row"><b>Генеральный штаб</b><span>Кенигсберг</span></div>
+<div class="row"><b>Генеральный штаб</b><span>Харизма</span></div>
+<div class="row"><b>Производство</b><span>Хорошее</span></div>
+<div class="row"><b>Сотрудники</b><span>300 000</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer><div class="container">С.О.М. • Судостроительное объединение моря • Корпоративная статистика</div></footer>
+
+<script>
+const production=[
+["Крейсеры",6],["Подводные лодки",6],["Газовозы",3],["Грузовые суда",3],
+["Логистические суда",4],["Береговая охрана",10],["Спасательные суда",5],["Вертолёты",30]
+];
+const chart=document.getElementById("chart");
+const max=Math.max(...production.map(x=>x[1]));
+production.forEach(([name,val])=>{
+ const w=document.createElement("div");w.className="barWrap";
+ w.innerHTML=`<div class="barVal">${val}</div><div class="bar" style="height:${Math.max(8,val/max*82)}%"></div><div class="barLabel">${name}</div>`;
+ chart.appendChild(w);
+});
+document.querySelectorAll(".tab").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".project").forEach(p=>p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById(btn.dataset.tab).classList.add("active");
+ });
+});
+</script>
+</body>
+</html>
